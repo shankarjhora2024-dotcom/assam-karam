@@ -1,0 +1,6 @@
+{
+  "name": "Karam Utsav",
+  "description": "Official website for Karam Utsav (karamutsav.org) — Celebrating indigenous nature worship, harvest, brotherhood, and tribal cultural heritage with rituals, folklore, Mandar rhythms, and community archives.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

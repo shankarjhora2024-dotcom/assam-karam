@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #F4F8F4;
+    color: #14361B;
+  }
+  .font-display {
+    font-family: 'Cinzel', Georgia, serif;
+  }
+  .font-cultural {
+    font-family: 'Rozha One', 'Cinzel', serif;
+  }
+}
+
+/* Subtle Tea Leaf Motif pattern */
+.pattern-tea {
+  background-color: #F4F8F4;
+  background-image: radial-gradient(#2D6A4F 0.75px, transparent 0.75px), radial-gradient(#1C4D25 0.75px, #F4F8F4 0.75px);
+  background-size: 28px 28px;
+  background-position: 0 0, 14px 14px;
+}
+
+/* Tea Garden Smooth Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #EDF4ED;
+}
+::-webkit-scrollbar-thumb {
+  background: #2D6A4F;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #1C4D25;
+}

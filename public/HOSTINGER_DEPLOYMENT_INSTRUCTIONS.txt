@@ -1,0 +1,11 @@
+HOW TO UPLOAD TO HOSTINGER:
+
+1. Log in to your Hostinger hPanel (https://hpanel.hostinger.com).
+2. Go to "Websites" -> Click "Manage" on your domain (e.g. karamutsav.org).
+3. Open "File Manager" (Files -> File Manager).
+4. Navigate inside the `public_html` directory.
+5. Upload `karamutsav-hostinger-build.zip` into `public_html`.
+6. Right-click the uploaded zip file and select "Extract".
+7. Extract the files directly into `public_html`.
+   (Ensure `index.html`, `.htaccess`, and the `assets` folder are directly inside `public_html`).
+8. Visit your domain in your browser! Your Karam Utsav website is live.
