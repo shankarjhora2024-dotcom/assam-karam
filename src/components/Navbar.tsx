@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, BookOpen, Image as ImageIcon, Mail, Home, Trees, ShoppingBag, Sparkles } from 'lucide-react';
+import { Menu, X, BookOpen, Image as ImageIcon, Mail, Home, Trees, ShoppingBag, Sparkles, Download } from 'lucide-react';
 
 interface NavbarProps {
   onOpenBuyEBook: () => void;
+  onOpenDownload?: () => void;
 }
 
-export function Navbar({ onOpenBuyEBook }: NavbarProps) {
+export function Navbar({ onOpenBuyEBook, onOpenDownload }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -111,6 +112,20 @@ export function Navbar({ onOpenBuyEBook }: NavbarProps) {
                   From ₹50
                 </span>
               </button>
+
+              {/* Hostinger ZIP Download Button */}
+              {onOpenDownload && (
+                <button
+                  type="button"
+                  onClick={onOpenDownload}
+                  id="header-download-hostinger-btn"
+                  className="flex items-center gap-1.5 py-2 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-[#D8F3DC] hover:text-white font-semibold text-xs border border-white/15 transition-all cursor-pointer"
+                  title="Download ready-to-upload Hostinger ZIP (No GitHub required)"
+                >
+                  <Download className="w-3.5 h-3.5 text-[#95D5B2]" />
+                  <span>Hostinger ZIP</span>
+                </button>
+              )}
             </div>
 
             {/* Mobile Hamburger Button */}
@@ -154,7 +169,7 @@ export function Navbar({ onOpenBuyEBook }: NavbarProps) {
               );
             })}
 
-            <div className="pt-2 border-t border-[#1C4D25]">
+            <div className="pt-2 border-t border-[#1C4D25] space-y-2">
               <button
                 onClick={() => {
                   setIsOpen(false);
@@ -165,6 +180,19 @@ export function Navbar({ onOpenBuyEBook }: NavbarProps) {
                 <BookOpen className="w-4 h-4 text-[#0A200E]" />
                 <span>Buy E-Book (English ₹70 • Assamese ₹50)</span>
               </button>
+
+              {onOpenDownload && (
+                <button
+                  onClick={() => {
+                    setIsOpen(false);
+                    onOpenDownload();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#1C4D25] text-[#D8F3DC] hover:text-white font-semibold text-xs border border-[#2D6A4F] cursor-pointer"
+                >
+                  <Download className="w-3.5 h-3.5 text-[#95D5B2]" />
+                  <span>Download for Hostinger (ZIP - No GitHub Needed)</span>
+                </button>
+              )}
             </div>
           </div>
         )}

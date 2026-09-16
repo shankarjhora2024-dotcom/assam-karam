@@ -35,9 +35,10 @@ export default function App() {
         onExploreEBook={() => setIsBuyEBookOpen(true)}
       />
 
-      {/* 1. Header Navigation: Home, Gallery, Contact Us + Buy E-Book */}
+      {/* 1. Header Navigation: Home, Gallery, Contact Us + Buy E-Book + Hostinger Download */}
       <Navbar
         onOpenBuyEBook={() => setIsBuyEBookOpen(true)}
+        onOpenDownload={() => setIsDownloadOpen(true)}
       />
 
       {/* Main Streamlined Page Flow */}
