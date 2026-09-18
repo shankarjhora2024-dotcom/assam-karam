@@ -12,6 +12,7 @@ import {
 export const HERO_IMAGE = '/src/assets/images/karam_utsav_hero_1789452122660.jpg';
 export const JAWA_IMAGE = '/src/assets/images/jawa_rituals_basket_1789452143016.jpg';
 export const MANDAR_IMAGE = '/src/assets/images/mandar_drum_dance_1789452158040.jpg';
+export const JHUMUR_GIRLS_IMAGE = '/src/assets/images/jhumur_girls_johar_1789671654763.jpg';
 
 export const FESTIVAL_INFO = {
   name: 'Karam Utsav',
@@ -389,6 +390,14 @@ export const FESTIVAL_EVENTS: FestivalEvent[] = [
 ];
 
 export const GALLERY_ITEMS: GalleryItem[] = [
+  {
+    id: 'gal-johar-10',
+    title: 'Johar! 10 Jhumur Dancers at Karam Akhra',
+    category: 'Akhra Dance',
+    caption: '10 young tea tribe maiden girls dressed in traditional white sarees with red borders, floral hair wreaths, and silver jewelry wishing sacred Johar with folded hands.',
+    imageSrc: JHUMUR_GIRLS_IMAGE,
+    location: 'Dibrugarh Tea Gardens, Assam'
+  },
   {
     id: 'gal-1',
     title: 'The Great Akhra Circle',

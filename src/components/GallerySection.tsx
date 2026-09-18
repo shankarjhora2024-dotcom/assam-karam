@@ -1,17 +1,26 @@
-import { useState } from 'react';
-import { GALLERY_ITEMS } from '../data/karamData';
+import { useState, useEffect } from 'react';
+import { DBService } from '../services/dbService';
 import { GalleryItem } from '../types';
 import { ImageIcon, X, MapPin, ZoomIn, Coffee } from 'lucide-react';
 
 export function GallerySection() {
+  const [galleryItems, setGalleryItems] = useState<GalleryItem[]>(() => DBService.getGalleryItems());
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [activeModalItem, setActiveModalItem] = useState<GalleryItem | null>(null);
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setGalleryItems(DBService.getGalleryItems());
+    };
+    window.addEventListener('karam_gallery_updated', handleUpdate);
+    return () => window.removeEventListener('karam_gallery_updated', handleUpdate);
+  }, []);
 
   const categories = ['All', 'Akhra Dance', 'Rituals', 'Instruments', 'Attire & Jewelry'];
 
   const filteredItems = selectedCategory === 'All'
-    ? GALLERY_ITEMS
-    : GALLERY_ITEMS.filter((item) => item.category === selectedCategory);
+    ? galleryItems
+    : galleryItems.filter((item) => item.category === selectedCategory);
 
   return (
     <section id="gallery" className="py-16 sm:py-24 bg-[#FFFFFF] border-t border-[#D5E5D5]">

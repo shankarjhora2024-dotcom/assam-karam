@@ -80,10 +80,20 @@ If you want to use Hostinger's Git deployment tool without GitHub Actions:
 ---
 
 ## 📋 What is Included in the Hostinger Build:
-- **`index.html`**: Clean, production-optimized entry point with relative `./assets` paths.
+- **`index.html`**: Clean, production-optimized entry point with relative `./assets` paths and Razorpay Checkout SDK.
+- **`Razorpay Payment Gateway`**: Integrated for English (₹70) and Assamese (₹50) E-Book editions with UPI, Cards, and NetBanking.
 - **`.htaccess`**: Configured for Apache/LiteSpeed with SPA URL rewriting, Gzip compression, and proper JavaScript MIME types.
 - **`assets/`**: High-performance minified JavaScript and CSS bundles.
 - **Cultural Assets**: Audio synthesizer files, book covers, and icons.
+
+---
+
+## 💳 Razorpay Payment Gateway Configuration (Optional):
+The website works out-of-the-box in test mode. To connect your live Razorpay merchant account:
+1. Log in to [https://dashboard.razorpay.com](https://dashboard.razorpay.com).
+2. Go to **Account & Settings** &rarr; **API Keys**.
+3. Generate your **Key ID** (starts with `rzp_live_...` or `rzp_test_...`).
+4. Set `VITE_RAZORPAY_KEY_ID=your_key_id_here` in `.env.example` before building, or provide it in your hosting environment.
 
 For any questions, write to `contact@karamutsav.org`.
 Johar! (जोहार! • জোহাৰ!)

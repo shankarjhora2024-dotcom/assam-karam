@@ -84,3 +84,58 @@ export interface AudioPattern {
     ghungroo: boolean;
   }[];
 }
+
+export interface UserProfile {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  city?: string;
+  role: 'user' | 'admin';
+  joinedAt: string;
+  lastLoginAt: string;
+  purchasedBooks: string[];
+}
+
+export interface BookOrder {
+  id: string;
+  orderId: string;
+  userName: string;
+  userEmail: string;
+  userPhone: string;
+  editionId: 'english' | 'assamese';
+  editionTitle: string;
+  editionLabel: string;
+  amountINR: number;
+  paymentGateway: string;
+  paymentId: string;
+  status: 'Completed' | 'Pending' | 'Refunded';
+  createdAt: string;
+  deliveryEmailSent: boolean;
+  deliverySmsSent: boolean;
+}
+
+export interface AdminMetrics {
+  totalUsers: number;
+  totalOrders: number;
+  totalRevenueINR: number;
+  englishOrdersCount: number;
+  assameseOrdersCount: number;
+  recentOrders: BookOrder[];
+  recentUsers: UserProfile[];
+}
+
+export interface AdminBookItem {
+  id: string;
+  title: string;
+  language: string;
+  priceINR: number;
+  originalPriceINR?: number;
+  author?: string;
+  description: string;
+  pageCount?: number;
+  coverImage?: string;
+  fileUrl?: string;
+  fileName?: string;
+  uploadedAt: string;
+}

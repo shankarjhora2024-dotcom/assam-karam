@@ -2,18 +2,20 @@ import { useState } from 'react';
 import { 
   Trees, Heart, Share2, Check, Globe, Mail, 
   MessageCircle, Send, Facebook, Twitter, Instagram, 
-  Youtube, Download, BookOpen, ShieldCheck
+  Youtube, BookOpen, ShieldCheck, User
 } from 'lucide-react';
 import { FESTIVAL_INFO } from '../data/karamData';
 import { PolicyType } from './LegalPolicyModal';
 
 interface FooterProps {
-  onOpenDownload?: () => void;
   onOpenBuyEBook?: () => void;
+  onOpenJohar?: () => void;
+  onOpenAdmin?: () => void;
+  onOpenUserAuth?: () => void;
   onOpenPolicy?: (policy: PolicyType) => void;
 }
 
-export function Footer({ onOpenDownload, onOpenBuyEBook, onOpenPolicy }: FooterProps) {
+export function Footer({ onOpenBuyEBook, onOpenAdmin, onOpenUserAuth, onOpenPolicy }: FooterProps) {
   const [copied, setCopied] = useState(false);
 
   const handleShare = () => {
@@ -176,7 +178,7 @@ export function Footer({ onOpenDownload, onOpenBuyEBook, onOpenPolicy }: FooterP
             </ul>
           </div>
 
-          {/* Social Icons & Share Action Buttons */}
+          {/* Social Icons */}
           <div className="lg:col-span-4 space-y-3.5">
             <div className="text-xs font-bold uppercase tracking-widest text-[#74C69D]">
               Connect &amp; Follow Us
@@ -199,44 +201,17 @@ export function Footer({ onOpenDownload, onOpenBuyEBook, onOpenPolicy }: FooterP
                 );
               })}
             </div>
-
-            {/* Action Buttons: Copy Link and Website ZIP Download */}
-            <div className="flex flex-col gap-2 pt-1">
-              <button
-                onClick={handleShare}
-                className="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-[#14361B] hover:bg-[#1B4324] text-[#D8F3DC] text-xs font-semibold border border-[#204E2B] transition-colors cursor-pointer"
-              >
-                {copied ? (
-                  <>
-                    <Check className="w-4 h-4 text-[#52B788]" />
-                    <span>Link Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Share2 className="w-4 h-4 text-[#95D5B2]" />
-                    <span>Copy Website Link</span>
-                  </>
-                )}
-              </button>
-
-              {onOpenDownload && (
-                <button
-                  id="footer-download-zip-btn"
-                  onClick={onOpenDownload}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-[#2D6A4F] hover:bg-[#40916C] text-[#E8F5E9] text-xs font-bold border border-[#52B788]/40 shadow-sm transition-all cursor-pointer"
-                >
-                  <Download className="w-4 h-4 text-[#95D5B2]" />
-                  <span>Download Website in ZIP (Hostinger)</span>
-                </button>
-              )}
-            </div>
           </div>
 
         </div>
 
         {/* Bottom bar with Professional Policy Pages */}
         <div className="pt-6 border-t border-[#16381C] flex flex-col lg:flex-row items-center justify-between gap-4 text-xs text-[#74C69D]">
-          <div>
+          <div 
+            onDoubleClick={onOpenAdmin} 
+            className="cursor-default select-none transition-colors hover:text-[#95D5B2]"
+            title="Karam Utsav Cultural Project"
+          >
             © 2026 Karam Utsav Cultural Project (karamutsav.org) • All rights reserved.
           </div>
 

@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, BookOpen, Image as ImageIcon, Mail, Home, Trees, ShoppingBag, Sparkles, Download } from 'lucide-react';
+import { BookOpen, Image as ImageIcon, Mail, Home, Trees, ShieldCheck, User } from 'lucide-react';
+import { DBService } from '../services/dbService';
 
 interface NavbarProps {
   onOpenBuyEBook: () => void;
-  onOpenDownload?: () => void;
+  onOpenJohar?: () => void;
+  onOpenAdmin: () => void;
+  onOpenUserAuth: () => void;
 }
 
-export function Navbar({ onOpenBuyEBook, onOpenDownload }: NavbarProps) {
-  const [isOpen, setIsOpen] = useState(false);
+export function Navbar({ onOpenBuyEBook, onOpenAdmin, onOpenUserAuth }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const currentUser = DBService.getCurrentUser();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,10 +47,10 @@ export function Navbar({ onOpenBuyEBook, onOpenDownload }: NavbarProps) {
   return (
     <>
       {/* Top Announcement Bar */}
-      <div id="top-announcement-bar" className="bg-[#1B4324] text-[#E8F5E9] text-xs py-2 px-4 text-center font-medium flex items-center justify-center gap-2 border-b border-[#14361B] tracking-wide">
-        <span className="inline-block w-2 h-2 rounded-full bg-[#52B788] animate-pulse"></span>
-        <span>
-          <strong>जोहार! (Johar!)</strong> Karam Puja • Dedicated to Nature &amp; Tea Tribe Traditions • <strong>karamutsav.org</strong>
+      <div id="top-announcement-bar" className="bg-[#1B4324] text-[#E8F5E9] text-[11px] sm:text-xs py-2 px-3 sm:px-4 text-center font-medium flex items-center justify-center gap-1.5 sm:gap-2 border-b border-[#14361B] tracking-wide">
+        <span className="inline-block w-2 h-2 rounded-full bg-[#52B788] animate-pulse shrink-0"></span>
+        <span className="truncate sm:overflow-visible">
+          <strong>জোহাৰ! (Johar!)</strong> Karam Puja • Nature &amp; Tea Tribe Traditions • <strong>karamutsav.org</strong>
         </span>
       </div>
 
@@ -55,31 +58,28 @@ export function Navbar({ onOpenBuyEBook, onOpenDownload }: NavbarProps) {
       <nav
         id="main-navigation"
         className={`sticky top-0 z-40 transition-all duration-300 ${
-          scrolled
-            ? 'bg-[#0E2A14]/95 backdrop-blur-md shadow-md border-b border-[#204E2B]'
-            : 'bg-[#14361B] border-b border-[#1B4324]'
-        }`}
+          scrolled ? 'bg-[#0A200E]/95 backdrop-blur-md shadow-md py-2.5' : 'bg-[#0F2D15] py-3 sm:py-3.5'
+        } border-b border-[#204E2B]`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-18 sm:h-20">
-            
-            {/* Logo */}
-            <a href="#home" className="flex items-center gap-3 group" id="brand-logo-link">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-[#2D6A4F] to-[#1B4324] text-[#D8F3DC] border border-[#52B788]/30 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
-                <Trees className="w-5 h-5 sm:w-6 sm:h-6 text-[#95D5B2]" />
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between gap-2">
+            {/* Logo / Brand Link */}
+            <a href="#home" id="nav-brand-logo" className="flex items-center gap-2 sm:gap-3 group shrink-0">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#52B788] to-[#1C4D25] flex items-center justify-center shadow-md group-hover:scale-105 transition-transform border border-[#74C69D]/30">
+                <Trees className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
               <div className="flex flex-col">
-                <span className="font-display font-bold text-xl sm:text-2xl text-[#E8F5E9] tracking-wider leading-none">
-                  KARAM UTSAV
+                <span className="font-display text-base sm:text-xl font-bold tracking-tight text-[#E8F5E9] group-hover:text-[#52B788] transition-colors leading-tight">
+                  Karam Utsav
                 </span>
-                <span className="text-[10px] sm:text-[11px] text-[#95D5B2] font-semibold tracking-widest uppercase mt-0.5">
-                  karamutsav.org • Heritage Portal
+                <span className="text-[10px] sm:text-xs text-[#95D5B2] font-serif font-medium tracking-wide">
+                  কৰম পূজা &bull; Sacred Nature Fest
                 </span>
               </div>
             </a>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-6">
+            {/* Desktop Navigation Links */}
+            <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
               {navLinks.map((link) => {
                 const Icon = link.icon;
                 const isActive = activeSection === link.id;
@@ -87,115 +87,76 @@ export function Navbar({ onOpenBuyEBook, onOpenDownload }: NavbarProps) {
                   <a
                     key={link.name}
                     href={link.href}
-                    className={`flex items-center gap-2 text-sm font-semibold transition-all py-1.5 px-3 rounded-lg ${
+                    id={`nav-link-${link.id}`}
+                    className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold transition-all ${
                       isActive
-                        ? 'text-[#95D5B2] bg-[#1C4D25]/70'
-                        : 'text-[#D8F3DC] hover:text-[#FFFFFF] hover:bg-[#1C4D25]/40'
+                        ? 'bg-[#1C4D25] text-[#52B788] shadow-xs'
+                        : 'text-[#D8F3DC] hover:text-[#FFFFFF] hover:bg-[#14361B]'
                     }`}
                   >
-                    <Icon className="w-4 h-4 text-[#74C69D]" />
+                    <Icon className={`w-4 h-4 ${isActive ? 'text-[#52B788]' : 'text-[#74C69D]'}`} />
                     <span>{link.name}</span>
                   </a>
                 );
               })}
+            </div>
 
-              {/* BUY E-BOOK BUTTON in Header */}
+            {/* Desktop Action Buttons */}
+            <div className="hidden md:flex items-center gap-2">
+              {/* BUY E-BOOK BUTTON */}
               <button
                 type="button"
                 onClick={onOpenBuyEBook}
                 id="header-buy-ebook-btn"
-                className="flex items-center gap-2 py-2 px-4 rounded-xl bg-[#52B788] hover:bg-[#40916C] text-[#0A200E] font-bold text-xs shadow-md transition-all cursor-pointer hover:scale-105"
+                className="flex items-center gap-2 py-2 px-3.5 rounded-xl bg-[#52B788] hover:bg-[#40916C] text-[#0A200E] font-bold text-xs shadow-md transition-all cursor-pointer hover:scale-105"
               >
                 <BookOpen className="w-4 h-4 text-[#0A200E]" />
                 <span>Buy E-Book</span>
                 <span className="bg-[#0A200E] text-white text-[10px] px-1.5 py-0.5 rounded font-extrabold">
-                  From ₹50
+                  ₹50 / ₹70
                 </span>
               </button>
 
-              {/* Hostinger ZIP Download Button */}
-              {onOpenDownload && (
-                <button
-                  type="button"
-                  onClick={onOpenDownload}
-                  id="header-download-hostinger-btn"
-                  className="flex items-center gap-1.5 py-2 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-[#D8F3DC] hover:text-white font-semibold text-xs border border-white/15 transition-all cursor-pointer"
-                  title="Download ready-to-upload Hostinger ZIP (No GitHub required)"
-                >
-                  <Download className="w-3.5 h-3.5 text-[#95D5B2]" />
-                  <span>Hostinger ZIP</span>
-                </button>
-              )}
+              {/* Reader Account / Sign In Button */}
+              <button
+                type="button"
+                onClick={onOpenUserAuth}
+                id="header-user-auth-btn"
+                className="flex items-center gap-1.5 py-2 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-[#D8F3DC] hover:text-white font-semibold text-xs border border-white/15 transition-all cursor-pointer"
+                title={currentUser ? `Signed in as ${currentUser.name}` : 'Reader Sign In'}
+              >
+                <User className="w-3.5 h-3.5 text-[#95D5B2]" />
+                <span>{currentUser ? currentUser.name.split(' ')[0] : 'Sign In'}</span>
+              </button>
             </div>
 
-            {/* Mobile Hamburger Button */}
+            {/* Mobile Header: Clean & Direct */}
             <div className="flex items-center gap-2 md:hidden">
+              {/* Reader Sign In Button on Mobile */}
+              <button
+                type="button"
+                onClick={onOpenUserAuth}
+                id="mobile-header-user-auth-btn"
+                className="flex items-center gap-1 py-1.5 px-2.5 rounded-xl bg-white/10 text-[#D8F3DC] text-xs font-semibold border border-white/15 cursor-pointer active:scale-95 transition-all"
+              >
+                <User className="w-3.5 h-3.5 text-[#95D5B2]" />
+                <span>{currentUser ? currentUser.name.split(' ')[0] : 'Sign In'}</span>
+              </button>
+
+              {/* Direct E-Book Button */}
               <button
                 type="button"
                 onClick={onOpenBuyEBook}
-                className="flex items-center gap-1.5 py-1.5 px-3 rounded-lg bg-[#52B788] text-[#0A200E] font-bold text-xs shadow-sm cursor-pointer"
+                id="mobile-header-ebook-btn"
+                className="flex items-center gap-1.5 py-1.5 px-3 rounded-xl bg-[#52B788] hover:bg-[#40916C] text-[#0A200E] font-bold text-xs shadow-sm cursor-pointer active:scale-95 transition-all"
               >
-                <BookOpen className="w-3.5 h-3.5" />
-                <span>Buy E-Book (From ₹50)</span>
-              </button>
-
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="p-2 rounded-xl text-[#E8F5E9] hover:bg-[#1C4D25] focus:outline-hidden transition-colors cursor-pointer"
-                aria-label="Toggle Navigation Menu"
-              >
-                {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                <BookOpen className="w-3.5 h-3.5 text-[#0A200E]" />
+                <span>E-Book ₹50/70</span>
               </button>
             </div>
 
           </div>
         </div>
-
-        {/* Mobile Dropdown Drawer */}
-        {isOpen && (
-          <div className="md:hidden bg-[#0A200E] border-b border-[#204E2B] px-4 pt-3 pb-5 space-y-2">
-            {navLinks.map((link) => {
-              const Icon = link.icon;
-              return (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold text-[#D8F3DC] hover:text-[#FFFFFF] hover:bg-[#1C4D25]/60 transition-colors"
-                >
-                  <Icon className="w-5 h-5 text-[#52B788]" />
-                  <span>{link.name}</span>
-                </a>
-              );
-            })}
-
-            <div className="pt-2 border-t border-[#1C4D25] space-y-2">
-              <button
-                onClick={() => {
-                  setIsOpen(false);
-                  onOpenBuyEBook();
-                }}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#52B788] text-[#0A200E] font-bold text-sm shadow-sm cursor-pointer"
-              >
-                <BookOpen className="w-4 h-4 text-[#0A200E]" />
-                <span>Buy E-Book (English ₹70 • Assamese ₹50)</span>
-              </button>
-
-              {onOpenDownload && (
-                <button
-                  onClick={() => {
-                    setIsOpen(false);
-                    onOpenDownload();
-                  }}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#1C4D25] text-[#D8F3DC] hover:text-white font-semibold text-xs border border-[#2D6A4F] cursor-pointer"
-                >
-                  <Download className="w-3.5 h-3.5 text-[#95D5B2]" />
-                  <span>Download for Hostinger (ZIP - No GitHub Needed)</span>
-                </button>
-              )}
-            </div>
-          </div>
-        )}
       </nav>
     </>
   );
